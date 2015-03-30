@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package efacsign;
+package efacsign.thread;
 
-import static efacsign.NewClass.converBase64;
+import efacsign.util.FileUtil;
+import efacsign.util.EntityManagerUtil;
 import efacsign.model.Comprobante;
 import efacsign.sign.XadesSign;
 import efacsign.sri.soap.recepcion.RespuestaSolicitud;
 import efacsign.sri.soap.recepcion.SoapRecepcion;
+import static efacsign.util.StringUtil.converBase64;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Proxy;
 import java.util.List;

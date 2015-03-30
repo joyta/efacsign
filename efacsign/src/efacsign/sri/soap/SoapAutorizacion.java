@@ -5,9 +5,9 @@
  */
 package efacsign.sri.soap;
 
-import efacsign.EntityManagerUtil;
-import efacsign.FileUtil;
-import efacsign.XML_Utilidades;
+import efacsign.util.EntityManagerUtil;
+import efacsign.util.FileUtil;
+import efacsign.util.XML_Utilidades;
 import efacsign.model.Comprobante;
 import efacsign.model.Mensaje;
 import java.io.IOException;

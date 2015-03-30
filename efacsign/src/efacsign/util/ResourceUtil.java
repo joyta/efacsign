@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package efacsign;
+package efacsign.util;
 
 import java.util.ResourceBundle;
 
@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  *
  * @author desarrollador
  */
-public class Resource {
+public class ResourceUtil {
     private static ResourceBundle resource = ResourceBundle.getBundle("efac");
     
     public static String getString(String key){

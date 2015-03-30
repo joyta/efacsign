@@ -6,9 +6,9 @@
 
 package efacsign.sri.soap.recepcion;
 
-import efacsign.EntityManagerUtil;
+import efacsign.util.EntityManagerUtil;
 import efacsign.model.Mensaje;
-import efacsign.XML_Utilidades;
+import efacsign.util.XML_Utilidades;
 import efacsign.model.Comprobante;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;

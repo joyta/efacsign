@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package efacsign;
+package efacsign.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

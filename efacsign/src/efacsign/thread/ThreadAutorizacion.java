@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package efacsign;
+package efacsign.thread;
 
+import efacsign.util.EntityManagerUtil;
 import efacsign.model.Comprobante;
 import efacsign.sri.soap.SoapAutorizacion;
 import java.io.IOException;
