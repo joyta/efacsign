@@ -1,6 +1,6 @@
 package efacsign.sign;
 
-import efacsign.pkstore.PassStoreKS;
+import efacsign.sign.pkstore.PassStoreKS;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

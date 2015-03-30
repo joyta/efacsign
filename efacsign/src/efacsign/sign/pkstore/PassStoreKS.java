@@ -1,4 +1,4 @@
-package efacsign.pkstore;
+package efacsign.sign.pkstore;
 
 import java.security.cert.X509Certificate;
 
