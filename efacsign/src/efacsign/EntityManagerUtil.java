@@ -16,7 +16,7 @@ import javax.persistence.Persistence;
  */
 public class EntityManagerUtil {
     
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("efacSignPU");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("efacsignPU");
     private static EntityManager em;
     
     
