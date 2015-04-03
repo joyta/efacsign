@@ -9,7 +9,6 @@ import efacsign.util.FileUtil;
 import efacsign.util.EntityManagerUtil;
 import efacsign.model.Comprobante;
 import efacsign.sign.XadesSign;
-import efacsign.sri.soap.recepcion.RespuestaSolicitud;
 import efacsign.sri.soap.recepcion.SoapRecepcion;
 import static efacsign.util.StringUtil.converBase64;
 import java.io.FileNotFoundException;

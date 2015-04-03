@@ -25,10 +25,8 @@ public class SoapRecepcion {
     
     public static XML_Utilidades xml_utilidades = new XML_Utilidades();
     
-    public RespuestaSolicitud sendPostSoap(String urlWebServices, String method, String host, String getEncodeXML, Proxy proxy, Comprobante comprobante, EntityManager em) {
-
-        RespuestaSolicitud r = null;
-                
+    public void sendPostSoap(String urlWebServices, String method, String host, String getEncodeXML, Proxy proxy, Comprobante comprobante, EntityManager em) {
+        
         try {
 
             URL oURL = new URL(urlWebServices);
@@ -56,7 +54,7 @@ public class SoapRecepcion {
             
             System.out.println(sb.toString());
 
-            r = this.getEstadoPostSoap(xml_utilidades.convertStringToDocument(sb.toString()),
+            this.getEstadoPostSoap(xml_utilidades.convertStringToDocument(sb.toString()),
                     "RespuestaRecepcionComprobante",
                     "estado",
                     comprobante);//está extrae la data de los nodos en un archivo XML
@@ -65,8 +63,7 @@ public class SoapRecepcion {
 
         } catch (Exception ex) {
             System.out.println("Error: "+ ex);
-        }
-        return r;
+        }        
     }
     
     
@@ -86,12 +83,11 @@ public class SoapRecepcion {
     
     
 
-    public RespuestaSolicitud getEstadoPostSoap(Document doc, String nodoRaiz, String nodoElemento, Comprobante comprobante) {
+    public void getEstadoPostSoap(Document doc, String nodoRaiz, String nodoElemento, Comprobante comprobante) {
 
         String estado = xml_utilidades.getNodes(nodoRaiz, nodoElemento, doc);
         System.out.println("Estado: "+estado);
-        
-        RespuestaSolicitud r = new RespuestaSolicitud(estado);        
+                
         EntityManager em = EntityManagerUtil.getEntityManager();
         
         if (estado.equals("DEVUELTA")) {
@@ -136,8 +132,6 @@ public class SoapRecepcion {
             } finally {
                 //em.close();
             }
-        }    
-        
-        return r;
+        }                    
     }
 }
