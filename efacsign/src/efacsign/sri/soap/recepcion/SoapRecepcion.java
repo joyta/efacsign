@@ -56,7 +56,7 @@ public class SoapRecepcion {
             
             System.out.println(sb.toString());
 
-            r = getEstadoPostSoap(xml_utilidades.convertStringToDocument(sb.toString()),
+            r = this.getEstadoPostSoap(xml_utilidades.convertStringToDocument(sb.toString()),
                     "RespuestaRecepcionComprobante",
                     "estado",
                     comprobante);//está extrae la data de los nodos en un archivo XML

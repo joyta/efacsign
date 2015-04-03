@@ -29,7 +29,7 @@ public class ThreadAutorizacion extends Thread {
         
         while (true) {            
             EntityManager em = EntityManagerUtil.getEntityManager();
-            List<efacsign.model.Comprobante> l = em.createQuery("from Comprobante where estado='Recibido' and tipo='01' and origen='Venta'").setMaxResults(1).getResultList();
+            List<efacsign.model.Comprobante> l = em.createQuery("from Comprobante where estado='Recibido' and tipo in ('01','04') and origen='Venta'").setMaxResults(1).getResultList();
 
             for (Comprobante c : l) {                                
                 SoapAutorizacion n = new SoapAutorizacion();

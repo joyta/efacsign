@@ -15,6 +15,9 @@ import static efacsign.util.StringUtil.converBase64;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Proxy;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.persistence.EntityManager;
@@ -45,12 +48,19 @@ public class ThreadRecepcion extends Thread {
     @Override
     public void run() {
         System.out.println("Iniciando thead recepción....");
+        Calendar calendar = GregorianCalendar.getInstance();
         
         while (true) {        
             EntityManager em = EntityManagerUtil.getEntityManager();
-            List<efacsign.model.Comprobante> l = em.createQuery("from Comprobante where estado='Registrado' and tipo='01' and origen='Venta'").setMaxResults(1).getResultList();
+            List<efacsign.model.Comprobante> l = em.createNativeQuery("select * from tributario.comprobante where estado='Registrado' and tipo in ('01','04') and origen='Venta' and (last_send is null or last_send <= now())", Comprobante.class).setMaxResults(1).getResultList();
 
             for (Comprobante c : l) {
+                
+                calendar.setTime(new Date());
+                calendar.add(Calendar.MINUTE, 5);                
+                c.setLast_send(calendar.getTime());                                
+                
+                System.out.println("Recepcion comprobante, Tipo:" + c.getTipo() + ", N: " + c.getNumero());
                 
                 SoapRecepcion n = new SoapRecepcion();
                 
@@ -63,15 +73,18 @@ public class ThreadRecepcion extends Thread {
                 }
                 
                 try {
-                    String xml64 = this.firmarDocumentoXmlXades(c);
-                
-                    RespuestaSolicitud r = n.sendPostSoap(
+                    String xml64 = this.firmarDocumentoXmlXades(c);                    
+                    n.sendPostSoap(
                             url, "POST", host,
                             n.formatSendPost(xml64),
                             Proxy.NO_PROXY, c, em
                     );  
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                
+                
+                
                                         
             }
 

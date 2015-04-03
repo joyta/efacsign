@@ -55,6 +55,9 @@ public class Comprobante implements Serializable {
     @Column
     private String ambiente;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date last_send;
+    
     public Comprobante() {
     }
 
@@ -201,6 +204,20 @@ public class Comprobante implements Serializable {
      */
     public void setAmbiente(String ambiente) {
         this.ambiente = ambiente;
+    }
+
+    /**
+     * @return the last_send
+     */
+    public Date getLast_send() {
+        return last_send;
+    }
+
+    /**
+     * @param last_send the last_send to set
+     */
+    public void setLast_send(Date last_send) {
+        this.last_send = last_send;
     }
     
 }
