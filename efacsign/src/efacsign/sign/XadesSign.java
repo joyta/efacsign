@@ -37,12 +37,9 @@ public class XadesSign {
     public PrivateKey privateKey;
     public Provider provider;
 
-    public byte[] firmarDocumentoXmlXades(byte[] entrada) {
-        //logger.info("Inicia el proceso de firmado del documento");
-        //X509Certificate certificate = LoadCertificate("C:\\Users\\Divusware\\workspace\\Firm\\cer\\diana_paulina_quille_camacho.p12", "corsYstel2011");		
-        X509Certificate certificate = LoadCertificate("corsYstel2011");		
+    public byte[] firmarDocumentoXmlXades(byte[] entrada) {        
+        X509Certificate certificate = LoadCertificate("corsYstel2011");
         
-
         //Si encontramos el certificado...  
         if (certificate != null) {
             //Crear datos a firmar  
@@ -82,8 +79,7 @@ public class XadesSign {
         return null;
     }
 
-    private X509Certificate LoadCertificate(final String password) {
-        System.out.println("Va a cargar el certificado");
+    private X509Certificate LoadCertificate(final String password) {        
         X509Certificate certificate = null;
         provider = null;
         privateKey = null;
@@ -106,13 +102,13 @@ public class XadesSign {
             if (certificates.size() >= 1) {
                 certificate = certificates.get(0);
 
-                // Obtenci�n de la clave privada asociada al certificado  
+                // Obtención de la clave privada asociada al certificado  
                 privateKey = storeManager.getPrivateKey(certificate);
 
-                // Obtenci�n del provider encargado de las labores criptogr�ficas  
+                // Obtención del provider encargado de las labores criptográficas  
                 provider = storeManager.getProvider(certificate);
             }
-            System.out.println("Certificado cargado correctamente");
+            System.out.println("Certificado cargado correctamente...");
         } catch (NoSuchAlgorithmException nsae) {
             //logger.info(nsae.getStackTrace());
             nsae.printStackTrace();
@@ -142,8 +138,7 @@ public class XadesSign {
         return certificate;
     }
 
-    private Document LoadXML(byte[] fileBytes) {
-        System.out.println("Va a cargar el xml");
+    private Document LoadXML(byte[] fileBytes) {        
         Document doc = null;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
@@ -167,7 +162,7 @@ public class XadesSign {
             //logger.info(ex.getStackTrace());
             return null;
         }
-        System.out.println("Xml cargado correctamente");
+        System.out.println("Xml cargado correctamente...");
         return doc;
     }
 

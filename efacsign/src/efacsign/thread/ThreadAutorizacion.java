@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.Proxy;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 /**
  *
@@ -31,7 +32,12 @@ public class ThreadAutorizacion extends Thread {
             EntityManager em = EntityManagerUtil.getEntityManager();
             List<efacsign.model.Comprobante> l = em.createQuery("from Comprobante where estado='Recibido' and tipo in ('01','04') and origen='Venta'").setMaxResults(1).getResultList();
 
-            for (Comprobante c : l) {                                
+            for (Comprobante c : l) {
+                em.refresh(c, LockModeType.READ);
+                
+                System.out.println("-------------------------------------------------------------");
+                System.out.println("Autorización comprobante, Tipo:" + c.getTipo() + ", N: " + c.getNumero() + ", Id: " + c.getId());
+                
                 SoapAutorizacion n = new SoapAutorizacion();
                 try {
                     String url = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";

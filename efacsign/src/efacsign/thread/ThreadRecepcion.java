@@ -20,6 +20,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 /**
  *
@@ -50,16 +51,19 @@ public class ThreadRecepcion extends Thread {
         Calendar calendar = GregorianCalendar.getInstance();
         
         while (true) {        
-            EntityManager em = EntityManagerUtil.getEntityManager();
+            EntityManager em = EntityManagerUtil.getEntityManager();            
+            
             List<efacsign.model.Comprobante> l = em.createNativeQuery("select * from tributario.comprobante where estado='Registrado' and tipo in ('01','04') and origen='Venta' and (last_send is null or last_send <= now())", Comprobante.class).setMaxResults(1).getResultList();
 
             for (Comprobante c : l) {
+                em.refresh(c, LockModeType.READ);
                 
                 calendar.setTime(new Date());
                 calendar.add(Calendar.MINUTE, 5);                
                 c.setLast_send(calendar.getTime());                                
                 
-                System.out.println("Recepcion comprobante, Tipo:" + c.getTipo() + ", N: " + c.getNumero());
+                System.out.println("-------------------------------------------------------------");
+                System.out.println("Recepción comprobante, Tipo:" + c.getTipo() + ", N: " + c.getNumero() + ", Id: " + c.getId());
                 
                 SoapRecepcion n = new SoapRecepcion();
                 
