@@ -134,9 +134,7 @@ public class SoapAutorizacion {
             con.setRequestProperty("Host", host);
 
             OutputStream reqStreamOut = con.getOutputStream();
-            reqStreamOut.write(getEncodeXML.getBytes());
-
-            System.out.println(con.getErrorStream());
+            reqStreamOut.write(getEncodeXML.getBytes());            
 
             java.io.BufferedReader rd = new java.io.BufferedReader(new java.io.InputStreamReader(con.getInputStream(), "UTF8"));
 
