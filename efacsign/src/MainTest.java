@@ -6,6 +6,7 @@
 
 import efacsign.thread.ThreadRecepcion;
 import efacsign.thread.ThreadAutorizacion;
+import efacsign.thread.ThreadNotificacion;
 
 /**
  *
@@ -22,6 +23,9 @@ public class MainTest {
         
         ThreadAutorizacion autThread = new ThreadAutorizacion();                       
         autThread.start();
+        
+        ThreadNotificacion notThread = new ThreadNotificacion();                       
+        notThread.start();
         
     }
 

@@ -17,7 +17,7 @@ public class FileUtil {
     
     public static void writeXml(Comprobante c, byte[] xmlSigned){
         try {
-            String file = ResourceUtil.getString("efac.path.xml") + c.getId().toString() + ".xml";              
+            String file = ResourceUtil.getString("efac.path.xml") + c.getTipo() + "_" + c.getNumero() + ".xml";              
             FileOutputStream fo = new FileOutputStream(file);
             fo.write(xmlSigned);
             fo.close(); 
@@ -27,7 +27,7 @@ public class FileUtil {
     
     public static void writeSignedXml(Comprobante c, byte[] xmlSigned){
         try {
-            String file = ResourceUtil.getString("efac.path.firmado") + c.getId().toString() + ".xml";              
+            String file = ResourceUtil.getString("efac.path.firmado") + c.getTipo() + "_" + c.getNumero() + ".xml";              
             FileOutputStream fo = new FileOutputStream(file);
             fo.write(xmlSigned);
             fo.close(); 
@@ -37,7 +37,7 @@ public class FileUtil {
     
     public static void writeSignedAuth(Comprobante c, byte[] xmlAut){
         try {
-            String file = ResourceUtil.getString("efac.path.autorizado") + c.getId().toString() + ".xml";              
+            String file = ResourceUtil.getString("efac.path.autorizado") + c.getTipo() + "_" + c.getNumero() + ".xml";
             FileOutputStream fo = new FileOutputStream(file);
             fo.write(xmlAut);
             fo.close(); 

@@ -58,6 +58,12 @@ public class Comprobante implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date last_send;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date last_email;
+    
+    @Column
+    private String send_email;
+    
     public Comprobante() {
     }
 
@@ -218,6 +224,34 @@ public class Comprobante implements Serializable {
      */
     public void setLast_send(Date last_send) {
         this.last_send = last_send;
+    }
+
+    /**
+     * @return the last_email
+     */
+    public Date getLast_email() {
+        return last_email;
+    }
+
+    /**
+     * @param last_email the last_email to set
+     */
+    public void setLast_email(Date last_email) {
+        this.last_email = last_email;
+    }
+
+    /**
+     * @return the send_email
+     */
+    public String getSend_email() {
+        return send_email;
+    }
+
+    /**
+     * @param send_email the send_email to set
+     */
+    public void setSend_email(String send_email) {
+        this.send_email = send_email;
     }
     
 }
