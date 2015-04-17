@@ -49,8 +49,8 @@ public class Comprobante implements Serializable {
     @Column
     private String numero_autorizacion;
     
-    @Temporal(TemporalType.DATE)
-    private Date fecha_autorizacion;
+    @Column
+    private String fecha_autorizacion;
     
     @Column
     private String ambiente;
@@ -187,14 +187,14 @@ public class Comprobante implements Serializable {
     /**
      * @return the fecha_autorizacion
      */
-    public Date getFecha_autorizacion() {
+    public String getFecha_autorizacion() {
         return fecha_autorizacion;
     }
 
     /**
      * @param fecha_autorizacion the fecha_autorizacion to set
      */
-    public void setFecha_autorizacion(Date fecha_autorizacion) {
+    public void setFecha_autorizacion(String fecha_autorizacion) {
         this.fecha_autorizacion = fecha_autorizacion;
     }
 

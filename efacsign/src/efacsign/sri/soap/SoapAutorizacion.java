@@ -54,12 +54,11 @@ public class SoapAutorizacion {
         if (estado.equals("AUTORIZADO")) {
             
             try {                                
-                String fa = xml_utilidades.getLastNode(pathLevelAutorizacon, "fechaAutorizacion", doc);
-                System.out.println(fa);
+                String fa = xml_utilidades.getLastNode(pathLevelAutorizacon, "fechaAutorizacion", doc);                
                 
                 comprobante.setEstado("Autorizado"); 
                 comprobante.setNumero_autorizacion(xml_utilidades.getLastNode(pathLevelAutorizacon, "numeroAutorizacion", doc));
-                comprobante.setFecha_autorizacion(f.parse(fa));
+                comprobante.setFecha_autorizacion(fa);
                 comprobante.setAmbiente(xml_utilidades.getLastNode(pathLevelAutorizacon, "ambiente", doc));
                 
                 String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + 
@@ -89,7 +88,7 @@ public class SoapAutorizacion {
             try {
                 comprobante.setEstado("NoAutorizado"); 
                                 
-                comprobante.setFecha_autorizacion(f.parse(xml_utilidades.getLastNode(pathLevelAutorizacon, "fechaAutorizacion", doc)));
+                comprobante.setFecha_autorizacion(xml_utilidades.getLastNode(pathLevelAutorizacon, "fechaAutorizacion", doc));
                 comprobante.setAmbiente(xml_utilidades.getLastNode(pathLevelAutorizacon, "ambiente", doc));                
                 
                 m.setIdentificador(xml_utilidades.getLastNode(pathLevelMensajes, "identificador", doc));
