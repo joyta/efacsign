@@ -1,6 +1,7 @@
 package efacsign.sign;
 
 import efacsign.sign.pkstore.PassStoreKS;
+import efacsign.util.ResourceUtil;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,8 +38,9 @@ public class XadesSign {
     public PrivateKey privateKey;
     public Provider provider;
 
-    public byte[] firmarDocumentoXmlXades(byte[] entrada) {        
-        X509Certificate certificate = LoadCertificate("corsYstel2011");
+    public byte[] firmarDocumentoXmlXades(byte[] entrada) {  
+        
+        X509Certificate certificate = LoadCertificate();
         
         //Si encontramos el certificado...  
         if (certificate != null) {
@@ -79,16 +81,19 @@ public class XadesSign {
         return null;
     }
 
-    private X509Certificate LoadCertificate(final String password) {        
+    private X509Certificate LoadCertificate() {        
         X509Certificate certificate = null;
         provider = null;
         privateKey = null;
+        String password = ResourceUtil.getString("efac.cert.clave");
 
         try {
+            
+            
             //Cargar certificado de fichero PFX  
             KeyStore ks = KeyStore.getInstance("PKCS12");
             
-            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("efacsign/cert/diana_paulina_quille_camacho.p12");            
+            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(ResourceUtil.getString("efac.cert.path"));            
             
             ks.load(new BufferedInputStream(is), password.toCharArray());
 

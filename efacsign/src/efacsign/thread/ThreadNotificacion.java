@@ -7,16 +7,13 @@ package efacsign.thread;
 
 import efacsign.util.EntityManagerUtil;
 import efacsign.model.Comprobante;
+import efacsign.util.ResourceUtil;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.ResourceBundle;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
@@ -24,20 +21,18 @@ import javax.persistence.LockModeType;
  *
  * @author desarrollador
  */
-public class ThreadNotificacion extends Thread {
-
-    ResourceBundle resource = null;
+public class ThreadNotificacion extends Thread {    
     
-    public ThreadNotificacion() {
-        resource = ResourceBundle.getBundle("efac");
+    private Long tiempoEspera = 0L;
+    
+    public ThreadNotificacion() {  
+        tiempoEspera = Long.parseLong(ResourceUtil.getString("efac.thread.tiempo.notificacion"));
     }
-    
-    
+        
 
     @Override
     public void run() {
-        System.out.println("Iniciando thead notificación....");
-        Calendar calendar = GregorianCalendar.getInstance();
+        System.out.println("Iniciando thead notificación....");        
         
         while (true) {        
             EntityManager em = EntityManagerUtil.getEntityManager();            
@@ -45,23 +40,19 @@ public class ThreadNotificacion extends Thread {
             List<efacsign.model.Comprobante> l = em.createNativeQuery("select * from tributario.comprobante where estado='Autorizado' and tipo in ('01','04') and origen='Venta' and (last_email is null or last_email <= now()) and send_email='No' ", Comprobante.class).setMaxResults(1).getResultList();
 
             for (Comprobante c : l) {
-                em.refresh(c, LockModeType.READ);
-                
-                calendar.setTime(new Date());
-                //calendar.add(Calendar.MINUTE, 5);                
-                //c.setLast_send(calendar.getTime());                                
+                em.refresh(c, LockModeType.READ);                                                
                 
                 System.out.println("-------------------------------------------------------------");
                 System.out.println("Notificación comprobante, Tipo:" + c.getTipo() + ", N: " + c.getNumero() + ", Id: " + c.getId());
                 
                 try {
-                    getRequestSoap("http://localhost/efacweb/efacapi/enviar_email/"+c.getId().toString(), "GET", "localhost","",Proxy.NO_PROXY, c);
+                    getRequestSoap(ResourceUtil.getString("efac.email.url")+c.getId().toString(), "GET", "localhost","",Proxy.NO_PROXY, c);
                 } catch (Exception e) {
                 }
             }
 
             try {
-                this.sleep(10000L);
+                this.sleep(tiempoEspera);
             } catch (Exception e) {
             }
 

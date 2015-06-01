@@ -7,7 +7,8 @@ package efacsign.thread;
 
 import efacsign.util.EntityManagerUtil;
 import efacsign.model.Comprobante;
-import efacsign.sri.soap.SoapAutorizacion;
+import efacsign.sri.soap.autorizacion.SoapAutorizacion;
+import efacsign.util.ResourceUtil;
 import java.io.IOException;
 import java.net.Proxy;
 import java.util.List;
@@ -20,8 +21,10 @@ import javax.persistence.LockModeType;
  */
 public class ThreadAutorizacion extends Thread {
 
-    public ThreadAutorizacion() {
-        
+    private Long tiempoEspera = 0L;
+    
+    public ThreadAutorizacion() {     
+        tiempoEspera = Long.parseLong(ResourceUtil.getString("efac.thread.tiempo.autorizacion"));
     }
 
     @Override
@@ -57,7 +60,7 @@ public class ThreadAutorizacion extends Thread {
             }
 
             try {
-                this.sleep(10000L);
+                this.sleep(tiempoEspera);
             } catch (Exception e) {
             }
 

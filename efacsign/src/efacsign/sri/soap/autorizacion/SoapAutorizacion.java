@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package efacsign.sri.soap;
+package efacsign.sri.soap.autorizacion;
 
 import efacsign.util.EntityManagerUtil;
 import efacsign.util.FileUtil;
@@ -16,7 +16,6 @@ import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Document;

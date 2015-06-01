@@ -10,6 +10,7 @@ import efacsign.util.EntityManagerUtil;
 import efacsign.model.Comprobante;
 import efacsign.sign.XadesSign;
 import efacsign.sri.soap.recepcion.SoapRecepcion;
+import efacsign.util.ResourceUtil;
 import static efacsign.util.StringUtil.converBase64;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,7 +19,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.ResourceBundle;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
@@ -26,12 +26,12 @@ import javax.persistence.LockModeType;
  *
  * @author desarrollador
  */
-public class ThreadRecepcion extends Thread {
-
-    ResourceBundle resource = null;
+public class ThreadRecepcion extends Thread {    
     
-    public ThreadRecepcion() {
-        resource = ResourceBundle.getBundle("efac");
+    private Long tiempoEspera = 0L;
+    
+    public ThreadRecepcion() {   
+        tiempoEspera = Long.parseLong(ResourceUtil.getString("efac.thread.tiempo.recepcion"));
     }
     
     public String firmarDocumentoXmlXades(Comprobante c) throws FileNotFoundException, IOException{
@@ -84,15 +84,11 @@ public class ThreadRecepcion extends Thread {
                     );  
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-                
-                
-                
-                                        
+                }                
             }
 
             try {
-                this.sleep(10000L);
+                this.sleep(tiempoEspera);
             } catch (Exception e) {
             }
 
